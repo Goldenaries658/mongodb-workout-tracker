@@ -34,6 +34,12 @@ const workoutSchema = new Schema({
   ],
 });
 
+// Setting a virtual to calculate total exercise duration on the fly
+workoutSchema.set("toJSON", { virtuals: true });
+workoutSchema.virtual("totalDuration").get(function () {
+  return this.exercises.reduce((total, { duration }) => total + duration, 0);
+});
+
 const Workout = mongoose.model("Workout", workoutSchema);
 
 module.exports = Workout;
