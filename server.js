@@ -14,6 +14,7 @@ app.use(express.json());
 
 // Adding routes
 require("./routes/html-routes")(app);
+require("./routes/api-routes")(app);
 
 // Setting up mongoose
 mongoose.connect("mongodb://localhost/workout", {
