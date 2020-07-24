@@ -12,27 +12,26 @@ const distanceInput = document.querySelector("#distance");
 const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
-const newWorkout = document.querySelector(".new-workout")
+const newWorkout = document.querySelector(".new-workout");
 
 let workoutType = null;
 let shouldNavigateAway = false;
 
-async function initExercise() {
+const initExercise = async () => {
   let workout;
 
   if (location.search.split("=")[1] === undefined) {
-    workout = await API.createWorkout()
-    console.log(workout)
+    workout = await API.createWorkout();
+    console.log(workout);
   }
   if (workout) {
     location.search = "?id=" + workout._id;
   }
-
-}
+};
 
 initExercise();
 
-function handleWorkoutTypeChange(event) {
+const handleWorkoutTypeChange = (event) => {
   workoutType = event.target.value;
 
   if (workoutType === "cardio") {
@@ -47,9 +46,9 @@ function handleWorkoutTypeChange(event) {
   }
 
   validateInputs();
-}
+};
 
-function validateInputs() {
+const validateInputs = () => {
   let isValid = true;
 
   if (workoutType === "resistance") {
@@ -93,9 +92,9 @@ function validateInputs() {
     completeButton.setAttribute("disabled", true);
     addButton.setAttribute("disabled", true);
   }
-}
+};
 
-async function handleFormSubmit(event) {
+const handleFormSubmit = async (event) => {
   event.preventDefault();
 
   let workoutData = {};
@@ -117,16 +116,16 @@ async function handleFormSubmit(event) {
   await API.addExercise(workoutData);
   clearInputs();
   toast.classList.add("success");
-}
+};
 
-function handleToastAnimationEnd() {
+const handleToastAnimationEnd = () => {
   toast.removeAttribute("class");
   if (shouldNavigateAway) {
     location.href = "/";
   }
-}
+};
 
-function clearInputs() {
+const clearInputs = () => {
   cardioNameInput.value = "";
   nameInput.value = "";
   setsInput.value = "";
@@ -135,7 +134,7 @@ function clearInputs() {
   repsInput.value = "";
   resistanceDurationInput.value = "";
   weightInput.value = "";
-}
+};
 
 if (workoutTypeSelect) {
   workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
@@ -153,4 +152,4 @@ toast.addEventListener("animationend", handleToastAnimationEnd);
 
 document
   .querySelectorAll("input")
-  .forEach(element => element.addEventListener("input", validateInputs));
+  .forEach((element) => element.addEventListener("input", validateInputs));
