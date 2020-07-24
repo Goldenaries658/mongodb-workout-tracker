@@ -13,7 +13,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Adding routes
-require('./routes/html-routes')(app)
+require("./routes/html-routes")(app);
+
+// Setting up mongoose
+mongoose.connect("mongodb://localhost/workout", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
