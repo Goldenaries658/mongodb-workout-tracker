@@ -25,14 +25,14 @@ const initExercise = async () => {
     console.log(workout);
   }
   if (workout) {
-    location.search = "?id=" + workout._id;
+    location.search = `?id=${workout._id}`;
   }
 };
 
 initExercise();
 
-const handleWorkoutTypeChange = (event) => {
-  workoutType = event.target.value;
+const handleWorkoutTypeChange = ({target}) => {
+  workoutType = target.value;
 
   if (workoutType === "cardio") {
     cardioForm.classList.remove("d-none");
@@ -140,7 +140,7 @@ if (workoutTypeSelect) {
   workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
 }
 if (completeButton) {
-  completeButton.addEventListener("click", function (event) {
+  completeButton.addEventListener("click", event => {
     shouldNavigateAway = true;
     handleFormSubmit(event);
   });
