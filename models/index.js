@@ -1,4 +1,4 @@
 // Exporting models for mongoose
 module.exports = {
-    Workout: require('./Workout')
-}
+  Workout: require('./Workout')
+};
