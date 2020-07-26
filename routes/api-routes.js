@@ -3,8 +3,7 @@ const db = require("../models");
 module.exports = (app) => {
   app.get("/api/workouts", async (req, res, next) => {
     try {
-      const result = await db.Workout.find({});
-      res.json(result);
+      res.json(await db.Workout.find({}));
     } catch (err) {
       next(err);
     }
@@ -17,8 +16,9 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/api/workouts", async ({ body }, res, next) => {
+  app.post("/api/workouts", async (req, res, next) => {
     try {
+      res.json(await db.Workout.create({}));
     } catch (err) {
       next(err);
     }
