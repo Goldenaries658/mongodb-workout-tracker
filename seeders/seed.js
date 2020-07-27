@@ -129,7 +129,9 @@ const workoutSeed = [
         type: 'resistance',
         name: 'Bench',
         duration: 30,
-        distance: 2
+        weight: 80,
+        reps: 7,
+        sets: 5
       }
     ]
   }
