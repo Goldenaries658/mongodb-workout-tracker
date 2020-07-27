@@ -4,7 +4,7 @@ const moment = require('moment');
 module.exports = (app) => {
   app.get('/api/workouts', async (req, res, next) => {
     try {
-      res.json(await Workout.find({}));
+      res.json(await Workout.find({})).exec();
     } catch (err) {
       next(err);
     }
@@ -14,9 +14,9 @@ module.exports = (app) => {
     const { body: newExercise, params } = req;
     const { id } = params;
     try {
-      const currentWorkout = await Workout.findById(id);
+      const currentWorkout = await Workout.findById(id).exec();
       currentWorkout.exercises.push(newExercise);
-      res.json(await Workout.findByIdAndUpdate(id, currentWorkout));
+      res.json(await Workout.findByIdAndUpdate(id, currentWorkout).exec());
     } catch (err) {
       next(err);
     }
@@ -24,7 +24,7 @@ module.exports = (app) => {
 
   app.post('/api/workouts', async (req, res, next) => {
     try {
-      res.json(await Workout.create({}));
+      res.json(await Workout.create({})).exec();
     } catch (err) {
       next(err);
     }
@@ -33,7 +33,7 @@ module.exports = (app) => {
   app.get('/api/workouts/range', async (req, res, next) => {
     const currentWeek = moment().isoWeek();
     try {
-      const workouts = await Workout.find({});
+      const workouts = await Workout.find({}).exec();
       // Filtering down to current weeks data
       res.json(
         workouts.filter(({ day }) => currentWeek === moment(day).isoWeek())
